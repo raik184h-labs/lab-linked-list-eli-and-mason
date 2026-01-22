@@ -160,13 +160,10 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public int indexOf(Object target) {
-        if (head == null) {
-            return -1;
-        }
         Node search = head;
         int index = 0;
-        while (!equals(target, search.cargo)) {
-            if (search.next == null) {
+        while (!search.cargo.equals(target)) {
+            if (search.next.equals(null)) {
                 return -1;
             }
 

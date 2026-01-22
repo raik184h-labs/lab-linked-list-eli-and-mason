@@ -114,6 +114,7 @@ public class MyLinkedListTest {
      */
     @Test
     public void testContains() {
+        System.out.println(mll);
         assertThat(mll.contains(1), equalTo(true));
         assertThat(mll.contains(4), equalTo(false));
         assertThat(mll.contains(null), equalTo(false));

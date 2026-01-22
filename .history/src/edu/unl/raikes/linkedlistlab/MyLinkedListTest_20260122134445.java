@@ -195,6 +195,7 @@ public class MyLinkedListTest {
     @Test
     public void testRemoveObject() {
         boolean flag = mll.remove(new Integer(2));
+        System.out.println(mll);
         assertThat(flag, equalTo(true));
         assertThat(mll.size(), is(2));
         assertThat(mll.get(1), is(new Integer(3)));

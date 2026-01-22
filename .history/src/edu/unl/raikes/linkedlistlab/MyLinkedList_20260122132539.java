@@ -85,20 +85,12 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public void add(int index, E element) {
-        if (index > size)
-            return;
-
-        if (index == size) {
-            add(element);
+        Node atIndex = this.getNode(index);
+        Node newNode = new Node(element, atIndex);
+        if (index != 0) {
+            this.getNode(index - 1).next = newNode;
         } else {
-            Node atIndex = this.getNode(index);
-            Node newNode = new Node(element, atIndex);
-            if (index != 0) {
-                this.getNode(index - 1).next = newNode;
-            } else {
-                head = newNode;
-            }
-            size++;
+            head = newNode;
         }
     }
 
@@ -160,12 +152,9 @@ public class MyLinkedList<E> implements List<E> {
 
     @Override
     public int indexOf(Object target) {
-        if (head == null) {
-            return -1;
-        }
         Node search = head;
         int index = 0;
-        while (!equals(target, search.cargo)) {
+        while (search != target) {
             if (search.next == null) {
                 return -1;
             }
@@ -230,7 +219,12 @@ public class MyLinkedList<E> implements List<E> {
         if (!contains(obj))
             return false;
 
-        remove(indexOf(obj));
+        int index = indexOf(obj);
+        if (index > 0) {
+            getNode(index - 1).next = getNode(index + 1);
+        } else {
+            head = getNode(index + 1);
+        }
 
         return true;
     }
@@ -239,18 +233,11 @@ public class MyLinkedList<E> implements List<E> {
     public E remove(int index) {
         E retNode = getNode(index).cargo;
 
-        if (index == 0) {
-            if (size > 1) {
-                head = getNode(index + 1);
-            } else {
-                head = null;
-            }
-        } else if (index < size - 1) {
+        if (index > 0) {
             getNode(index - 1).next = getNode(index + 1);
         } else {
-            getNode(index - 1).next = null;
+            head = getNode(index + 1);
         }
-        size--;
 
         return retNode;
     }
